@@ -124,15 +124,15 @@ class TranslationTool(Tool):
     arg: str = "The story text to translate"
 
     def run(self, story: str) -> str:
-        llm = OpenAI(model='gpt-4o-mini')
-        translation = llm.complete(
-            f"""you are a veteran English to Japanese translator for short stories. here is a short story: {story}.
-            read it carefully and then translate it into Japanese, be thoughtful about the nuances of the languages. write in md syntax. your translation:"""
-        )
+        # llm = OpenAI(model='gpt-4o-mini')
+        # translation = llm.complete(
+        #     f"""you are a veteran English to Japanese translator for short stories. here is a short story: {story}.
+        #     read it carefully and then translate it into Japanese, be thoughtful about the nuances of the languages. write in md syntax. your translation:"""
+        # )
           # Extract just the translation
         # with open('publication/translation.md', 'w', encoding='utf-8') as f:
         #     f.write(translation)
-        return translation
+        return story
 
 # Event classes remain the same
 class SubtopicPackage(Event):
