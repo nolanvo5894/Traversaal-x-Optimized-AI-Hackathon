@@ -264,12 +264,16 @@ class StoryPublicationFlow(Workflow):
         # Generate translation
         print('📝 Translating story to Japanese...')
         llm = OpenAI(model='gpt-4o-mini')
+
+        final_story = "Once upon a time, there was a cat who loved to play with a ball. The ball was blue and had a funny face on it. The cat would roll the ball around the room and chase it with its paws. It was a fun game for both of them. The cat would purr and the ball would roll. It was a happy day for both of them."
         translation = llm.complete(
             f"""you are a veteran English to Japanese translator for short stories. here is a short story: {final_story}.
-            read it carefully and then translate it into Japanese, be thoughtful about the nuances of the languages. write in md syntax. your translation:"""
+            read it carefully and then translate it into Japanese, be thoughtful about the nuances of the languages. 
+            write in md syntax. start immediately with your Japanese translation:"""
         )
+        
         with open('publication/translation.md', 'w', encoding='utf-8') as f:
-            f.write(translation)
+            f.write(translation.text)
         print('✅ Translation complete')
         
         # Generate illustration
@@ -336,7 +340,7 @@ async def generate_story(topic):
     return await w.run(query=topic)
 
 def main():
-    st.title("RandomAI - The AI Publishing House 🔖")
+    st.title("Traverse Story - The AI Publishing House 🔖")
     
     # Input section
     topic = st.text_input("What topic do you want to write a short story about?")
