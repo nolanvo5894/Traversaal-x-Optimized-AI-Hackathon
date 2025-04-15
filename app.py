@@ -265,7 +265,7 @@ class StoryPublicationFlow(Workflow):
         print('📝 Translating story to Japanese...')
         llm = OpenAI(model='gpt-4o-mini')
 
-        final_story = "Once upon a time, there was a cat who loved to play with a ball. The ball was blue and had a funny face on it. The cat would roll the ball around the room and chase it with its paws. It was a fun game for both of them. The cat would purr and the ball would roll. It was a happy day for both of them."
+        
         translation = llm.complete(
             f"""you are a veteran English to Japanese translator for short stories. here is a short story: {final_story}.
             read it carefully and then translate it into Japanese, be thoughtful about the nuances of the languages. 
