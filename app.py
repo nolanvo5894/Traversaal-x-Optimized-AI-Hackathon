@@ -27,8 +27,7 @@ import base64
 import json
 from pydantic import BaseModel
 
-# Remove or comment out load_dotenv() since we're using Streamlit secrets
-# load_dotenv()
+
 
 # Function to download image from a URL
 def download_image(url, save_path):
@@ -69,8 +68,7 @@ class TeaserTool(Tool):
             read it carefully and write a very catchy hooking 2-sentence teaser for it to post on social media. write in md syntax"""
         )
         content = str(teaser).strip() 
-        # with open('publication/teaser.md', 'w', encoding='utf-8') as f:
-        #     f.write(content)
+        
         return content
 
 class IllustrationTool(Tool):
@@ -87,29 +85,7 @@ class IllustrationTool(Tool):
             )
             prompt_content = str(prompt).split("prompt:")[-1].strip()
             return prompt_content
-            # client = oai()
-            # response = client.images.generate(
-            #     model="dall-e-3",
-            #     prompt=prompt_content,
-            #     size="1024x1024",
-            #     quality="standard",
-            #     n=1,
-            # )
-
-            # image_url = response.data[0].url
-            
-            # illustration_path = "publication/story_illustration.jpg"
-            
-            # # Download image using requests
-            # img_response = requests.get(image_url)
-            # if img_response.status_code == 200:
-            #     with open(illustration_path, 'wb') as f:
-            #         f.write(img_response.content)
-            #     print(f"Illustration saved to {illustration_path}")
-            #     return illustration_path
-            # else:
-            #     print(f"Failed to download image: {img_response.status_code}")
-            #     return None
+          
         except Exception as e:
             print(f"Error creating illustration: {e}")
             return None
@@ -235,7 +211,7 @@ class StoryPublicationFlow(Workflow):
             print('✍️ Writing initial draft of the story...')
             topic = await ctx.get('topic')
             source_materials = ev.source_materials
-            llm = OpenAI(model='gpt-4o-mini')
+            llm = OpenAI(model='gpt-4o-mini', max_tokens=4096)
             response = await llm.acomplete(f'''you are a world famous fiction writer of scifi short stories. 
                                         you are tasked with writing a super short story about {topic}.
                                         these are some source materials for you to choose from and use to write the story: {source_materials}''')
